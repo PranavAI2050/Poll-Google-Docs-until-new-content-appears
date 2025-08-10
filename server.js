@@ -1,9 +1,11 @@
 require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
+const cors = require('cors'); 
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 app.post('/start-flow', async (req, res) => {
     const { topic, jsontemplate, url } = req.body;
@@ -74,3 +76,4 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
+
