@@ -98,9 +98,27 @@ app.post('/start-flow', async (req, res) => {
   try {
     // Call Flowise API but ignore response/errors so polling can continue immediately
     console.log('Calling Flowise API...');
+    // axios.post(
+    //   process.env.FLOWISE_API_URL,
+    //   { overrideConfig: { topic, jsontemplate, url } },
+    //   {
+    //     headers: {
+    //       Authorization: `Bearer ${process.env.FLOWISE_API_KEY}`,
+    //       'Content-Type': 'application/json',
+    //     },
+    //   }
+    // ).catch((err) => {
+    //   console.warn('Flowise API call failed or timed out, continuing anyway...', err.message);
+    // });
     axios.post(
       process.env.FLOWISE_API_URL,
-      { overrideConfig: { topic, jsontemplate, url } },
+      {
+        overrideConfig: {
+        jsontemplate: jsontemplate,
+        topic: topic,
+        url: url
+        }
+      },
       {
         headers: {
           Authorization: `Bearer ${process.env.FLOWISE_API_KEY}`,
@@ -158,3 +176,4 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
